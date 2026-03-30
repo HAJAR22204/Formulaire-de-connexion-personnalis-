@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureApp - Connexion</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .conteneur-principal {
+            width: 100%;
+            max-width: 420px;
+            padding: 20px;
+        }
+
+        .entete-app {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .entete-app h1 {
+            color: #e94560;
+            font-size: 2rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .entete-app p {
+            color: #a8b2d8;
+            font-size: 0.85rem;
+            margin-top: 6px;
+        }
+
+        .carte-connexion {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 36px 32px;
+            backdrop-filter: blur(10px);
+        }
+
+        .carte-connexion h2 {
+            color: #ccd6f6;
+            font-size: 1.2rem;
+            margin-bottom: 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 12px;
+        }
+
+        .champ-formulaire {
+            margin-bottom: 18px;
+        }
+
+        .champ-formulaire label {
+            display: block;
+            color: #a8b2d8;
+            font-size: 0.82rem;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .champ-formulaire input {
+            width: 100%;
+            padding: 11px 14px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            color: #ccd6f6;
+            font-size: 0.95rem;
+            transition: border-color 0.3s;
+            outline: none;
+        }
+
+        .champ-formulaire input:focus {
+            border-color: #e94560;
+        }
+
+        .champ-formulaire input::placeholder {
+            color: rgba(255, 255, 255, 0.25);
+        }
+
+        .bouton-connexion {
+            width: 100%;
+            padding: 12px;
+            background: #e94560;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: background 0.3s, transform 0.1s;
+            margin-top: 8px;
+        }
+
+        .bouton-connexion:hover {
+            background: #c73652;
+        }
+
+        .bouton-connexion:active {
+            transform: scale(0.98);
+        }
+
+        .message-alerte {
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .message-erreur {
+            background: rgba(233, 69, 96, 0.15);
+            border: 1px solid rgba(233, 69, 96, 0.4);
+            color: #ff7096;
+        }
+
+        .message-succes {
+            background: rgba(46, 213, 115, 0.12);
+            border: 1px solid rgba(46, 213, 115, 0.35);
+            color: #2ed573;
+        }
+
+        .pied-carte {
+            text-align: center;
+            margin-top: 20px;
+            color: #64748b;
+            font-size: 0.78rem;
+        }
+    </style>
+</head>
+<body>
+<div class="conteneur-principal">
+    <div class="entete-app">
+        <h1>SecureApp</h1>
+        <p>Plateforme de gestion securisee</p>
+    </div>
+
+    <div class="carte-connexion">
+        <h2>Acces au systeme</h2>
+
+        <div th:if="${param.echec}" class="message-alerte message-erreur">
+            Identifiant ou mot de passe invalide. Veuillez reessayer.
+        </div>
+
+        <div th:if="${param.deconnecte}" class="message-alerte message-succes">
+            Vous avez ete deconnecte avec succes.
+        </div>
+
+        <form th:action="@{/traitement-connexion}" method="post">
+            <div class="champ-formulaire">
+                <label for="username">Identifiant</label>
+                <input type="text" id="username" name="username" placeholder="Entrez votre identifiant" required autofocus>
+            </div>
+
+            <div class="champ-formulaire">
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required>
+            </div>
+
+            <button type="submit" class="bouton-connexion">Se connecter</button>
+        </form>
+    </div>
+
+    <div class="pied-carte">
+        SecureApp v1.0 &mdash; Acces restreint aux utilisateurs autorises
+    </div>
+</div>
+</body>
+</html>

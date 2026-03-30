@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Espace Personnel</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f0f2f5; min-height: 100vh; }
+
+        .barre-nav {
+            background: #1a1a2e;
+            padding: 14px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .barre-nav .logo { color: #e94560; font-weight: 700; letter-spacing: 2px; }
+        .barre-nav .info { color: #a8b2d8; font-size: 0.88rem; }
+
+        .contenu { max-width: 760px; margin: 50px auto; padding: 0 20px; }
+
+        .carte-profil {
+            background: white;
+            border-radius: 14px;
+            padding: 36px 32px;
+            box-shadow: 0 2px 14px rgba(0,0,0,0.07);
+            margin-bottom: 24px;
+        }
+
+        .avatar {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #e94560, #0f3460);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        .carte-profil h1 { color: #1a1a2e; font-size: 1.3rem; margin-bottom: 6px; }
+        .carte-profil .role-label { color: #64748b; font-size: 0.88rem; margin-bottom: 22px; }
+
+        .info-liste { list-style: none; }
+        .info-liste li {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f2f5;
+            font-size: 0.92rem;
+        }
+        .info-liste li:last-child { border-bottom: none; }
+        .info-liste .cle { color: #64748b; }
+        .info-liste .valeur { color: #1a1a2e; font-weight: 500; }
+
+        .liens-bas { display: flex; gap: 12px; margin-top: 20px; }
+
+        a.btn {
+            padding: 9px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 600;
+        }
+
+        .btn-retour { background: #1a1a2e; color: white; }
+        .btn-deconnexion { background: #e94560; color: white; }
+        .btn-retour:hover { background: #0f3460; }
+        .btn-deconnexion:hover { background: #c73652; }
+    </style>
+</head>
+<body>
+<nav class="barre-nav">
+    <div class="logo">SECUREAPP</div>
+    <div class="info">Session active &mdash; <strong sec:authentication="name">utilisateur</strong></div>
+</nav>
+
+<div class="contenu">
+    <div class="carte-profil">
+        <div class="avatar" sec:authentication="name">U</div>
+        <h1>Espace Personnel</h1>
+        <p class="role-label">Module accessible aux roles USER et ADMIN</p>
+
+        <ul class="info-liste">
+            <li>
+                <span class="cle">Identifiant connecte</span>
+                <span class="valeur" sec:authentication="name">N/A</span>
+            </li>
+            <li>
+                <span class="cle">Roles attribues</span>
+                <span class="valeur" sec:authentication="principal.authorities">N/A</span>
+            </li>
+            <li>
+                <span class="cle">Statut de session</span>
+                <span class="valeur">Active</span>
+            </li>
+            <li>
+                <span class="cle">Authentification</span>
+                <span class="valeur">Spring Security (InMemory)</span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="liens-bas">
+        <a th:href="@{/accueil}" class="btn btn-retour">Retour a l'accueil</a>
+        <a th:href="@{/deconnexion}" class="btn btn-deconnexion">Se deconnecter</a>
+    </div>
+</div>
+</body>
+</html>
